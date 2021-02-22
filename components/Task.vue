@@ -1,5 +1,24 @@
 <template>
-  <progress :style="cssVars" class="task" :value="complete">{{name}}</progress>
+  <!-- <label> -->
+  <div
+    class="task"
+    :style="cssVars"
+    @mouseover="showText = true"
+    @mouseleave="showText = false"
+  >
+    <progress
+      v-show="!showText"
+      :style="cssVars"
+      class="task"
+      :value="complete"
+    ></progress>
+    <div
+      v-show="showText"
+      style="text-align: center; opacity: 0.5; background: var(--color);"
+    >
+      {{ name }}
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -10,10 +29,20 @@
   padding: 0em;
   margin: 0px;
   width: 100%;
+  height: 100%;
 }
-progress::-webkit-progress-value {background-color: var(--color) !important;}
-progress::-moz-progress-bar {background-color: var(--color) !important;}
-progress {color: var(--color);}
+progress::-webkit-progress-value {
+  background-color: var(--color) !important;
+  /* width: 100%; */
+}
+progress::-moz-progress-bar {
+  background-color: var(--color) !important;
+  /* width: 100%; */
+}
+progress {
+  color: var(--color);
+  /* width: 100%; */
+}
 </style>
 
 <script>
@@ -57,7 +86,7 @@ export default {
       return this.LightenDarkenColor(this.color, 20);
     },
     computedComplete() {
-      return 10 * this.complete+1;
+      return 10 * this.complete + 1;
     }
   },
   methods: {
