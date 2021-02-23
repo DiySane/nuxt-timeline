@@ -1,60 +1,48 @@
 <template>
-<!-- <li> -->
-  <ul
+  <!-- <label> -->
+  <div
     class="task"
     :style="cssVars"
     @mouseover="showText = true"
     @mouseleave="showText = false"
   >
-    <!-- {{ name }} -->
-    <!-- <div class="task" :style="cssVars"> -->
-    <SubTask
-    v-show="!showText"
-    :start="1" :end="computedComplete" :color="color" />
-    <SubTask
-    v-show="!showText"
-     :end="11" :start="computedComplete" :color="pendingColor" />
-    <!-- <div style="text-align: center; background-color: transparent; grid-column: 1 / 11;">{{ name }}</div> -->
-    <li
+    <progress
+      v-show="!showText"
+      :style="cssVars"
+      class="task"
+      :value="complete"
+    ></progress>
+    <div
       v-show="showText"
-      style="grid-column: 1/11; text-align: center; opacity: 0.5; background: var(--color);"
+      style="text-align: center; opacity: 0.5; background: var(--color);"
     >
       {{ name }}
-    </li>
-
-    <!-- <SubTask :start="1" :end="computedComplete" :color="pendingColor"/>
-      <SubTask :end="11" :start="computedComplete" :color="color"/> -->
-  </ul>
-<!-- </li> -->
+    </div>
+  </div>
 </template>
 
 <style scoped>
-/* ul {
-  list-style-type: none;
- } */
 .task {
-  /* background: transparent; */
-  background: var(--color);
-  /* opacity: 0.0; */
+  background: var(--pending-color);
   padding: 1em;
   grid-column: var(--start) / var(--end);
   padding: 0em;
   margin: 0px;
-  /* text-align: center; */
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
   width: 100%;
-  /* list-style-type: none; */
-  /* overflow: hidden; */
+  height: 100%;
 }
-/* .complete {
-  background: var(--color);
-  grid-column: var(--start) / var(--complete);
+progress::-webkit-progress-value {
+  background-color: var(--color) !important;
+  /* width: 100%; */
 }
-.pending {
-  background: var(--pending-color);
-  grid-column: var(--start) / var(--end);
-} */
+progress::-moz-progress-bar {
+  background-color: var(--color) !important;
+  /* width: 100%; */
+}
+progress {
+  color: var(--color);
+  /* width: 100%; */
+}
 </style>
 
 <script>
@@ -63,7 +51,6 @@ export default {
   data() {
     return {
       showText: false
-      //   pendingColor: this.LightenDarkenColor(this.color, -20),
     };
   },
   props: {
@@ -91,7 +78,7 @@ export default {
         "--color": this.color,
         "--start": this.start,
         "--end": this.end,
-        "--complete": this.computedComplete,
+        "--complete": this.complete,
         "--pending-color": this.pendingColor
       };
     },
@@ -99,7 +86,7 @@ export default {
       return this.LightenDarkenColor(this.color, 20);
     },
     computedComplete() {
-      return 10 * this.complete+1;
+      return 10 * this.complete + 1;
     }
   },
   methods: {

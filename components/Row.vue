@@ -1,10 +1,6 @@
 <template>
   <div class="row" :style="cssVars">
     <div class="row-label">{{ name }}</div>
-    <!-- <Task :name="'task1'" :start="2" :end="3" :color="color" :complete="0.3" />
-    <Task :name="'task2'" :start="4" :end="5" :color="color" :complete="0.5" />
-    <Task :name="'task3'" :start="3" :end="6" :color="color" :complete="0.5" />
-    <Task :name="'task4'" :start="7" :end="8" :color="color" :complete="0.5" /> -->
     <Task :name="'task1'" :start="2" :end="3" :color="color" :complete="0.3" />
     <Task :name="'task2'" :start="4" :end="5" :color="color" :complete="0.5" />
     <Task :name="'task3'" :start="3" :end="6" :color="color" :complete="0.5" />
