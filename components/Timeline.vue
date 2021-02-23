@@ -1,10 +1,12 @@
 <template>
   <div class="timeline">
-    <Header />
-    <Row :gridColumnSpan="7" :name="'row1'" :color="'#ffa07a'" />
-    <!-- <Row :gridColumnSpan='7' :name="'row1'" :color="'red'"/> -->
+    <Header :columnSpan="columnSpan" />
+    <!-- <Row :gridColumnSpan="7" :name="'row1'" :color="'#ffa07a'" />
     <Row :gridColumnSpan="7" :name="'row2'" :color="'#fbec5d'" />
-    <Row :gridColumnSpan="7" :name="'row3'" :color="'#33a8a5'" />
+    <Row :gridColumnSpan="7" :name="'row3'" :color="'#33a8a5'" /> -->
+    <div v-for="row in rows" :key="row.name">
+        <Row :gridColumnSpan="columnSpan" :name="row.name" :color="row.color" />
+    </div>
   </div>
 </template>
 
@@ -28,5 +30,21 @@
 <script>
 import Header from "@/components/Header";
 import Row from "@/components/Row";
-export default {};
+export default {
+    props: {
+        rows: {
+            type: Array,
+            required: true
+        },
+        startDate: {
+            type: String
+        },
+        endDate: {
+            type: String
+        },
+        columnSpan: {
+            type: Number
+        }
+    },
+};
 </script>
