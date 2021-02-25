@@ -2,7 +2,7 @@
   <div class="row" :style="cssVars">
     <div class="row-label">Columns</div>
     <div v-for="i in columnSpan" :key="i">
-      <ColumnHeader :name="i" :gridColumn="i+1"/>
+      <ColumnHeader :name="i.toString()" :gridColumn="i+1"/>
     </div> 
     <!-- <ColumnHeader :name="'Sun'" :gridColumn="2" />
     <ColumnHeader :name="'Mon'" :gridColumn="3" />

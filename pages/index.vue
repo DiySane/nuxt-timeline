@@ -12,7 +12,7 @@
         <TaskManager />
       </v-col>
       <v-col>
-        <GridManager @addRow="acceptRow"  @emitDateRange="acceptDateRange"/>
+        <GridManager @addRow="acceptRow"  @addColumn="acceptDateRange"/>
       </v-col>
     </v-row>
   </v-container>

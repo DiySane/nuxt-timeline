@@ -9,22 +9,33 @@
     >
       GRID MANAGER
     </v-card-title>
-    <v-form class="px-3" ref="form" style="grid-row: 2/5; grid-column: 1/3;">
-      <v-text-field
-        label="Row Name"
-        v-model="rowName"
-        prepend-icon="mdi-pencil"
-      ></v-text-field>
-      <v-text-field
-        label="Row Color"
-        v-model="rowColor"
-        prepend-icon="mdi-pencil"
-      ></v-text-field>
-      <v-row>
-        <DateRangePicker @emitDateRange="acceptDateRange" />
-      </v-row>
-      <v-btn @click="emitRow"> Submit</v-btn>
-    </v-form>
+    <v-card class="px-3" ref="form" style="grid-row: 2/5; grid-column: 1/3;">
+      <v-card color="#607D8B">
+        <v-col>
+          <v-text-field
+            label="Row Name"
+            v-model="rowName"
+            prepend-icon="mdi-pencil"
+          ></v-text-field>
+          <v-text-field
+            label="Row Color"
+            v-model="rowColor"
+            prepend-icon="mdi-pencil"
+          ></v-text-field>
+          <v-btn @click="emitRow"> Submit</v-btn>
+        </v-col>
+        <v-spacer></v-spacer>
+      </v-card>
+      <v-divider></v-divider>
+      <v-divider></v-divider>
+      <v-divider></v-divider>
+      <v-card color="#607D8B" hover>
+        <v-col>
+          <DateRangePicker @emitDateRange="acceptDateRange" />
+          <v-btn @click="emitColumn"> Submit</v-btn>
+        </v-col>
+      </v-card>
+    </v-card>
   </v-card>
 </template>
 
@@ -65,15 +76,17 @@ export default {
       this.rowName = "";
       this.rowColor = "";
     },
+    emitColumn() {
+      this.$emit("addColumn", {
+        startDate: this.startDate,
+        endDate: this.endDate,
+        columnSpan: this.columnSpan
+      });
+    },
     acceptDateRange(dateRange) {
       this.startDate = dateRange.startDate;
       this.endDate = dateRange.endDate;
       this.columnSpan = dateRange.columnSpan;
-      this.$emit("emitDateRange", {
-        startDate: dateRange.startDate,
-        endDate: dateRange.endDate,
-        columnSpan: dateRange.columnSpan
-      });
     }
   }
 };

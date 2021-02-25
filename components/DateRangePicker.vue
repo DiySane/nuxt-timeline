@@ -64,7 +64,7 @@ export default {
       var b = moment(this.dates[1]);
       let startDate = a.format("DD-MM-YYYY");
       let endDate = b.format("DD-MM-YYYY");
-      let columnSpan = Math.abs(a.diff(b, "days"));
+      let columnSpan = Math.abs(a.diff(b, "days")) + 1;
       console.log(columnSpan);
       this.$emit("emitDateRange", {
         startDate,
