@@ -12,17 +12,30 @@
     <v-card class="px-3" ref="form" style="grid-row: 2/5; grid-column: 1/3;">
       <v-card color="#607D8B">
         <v-col>
-          <v-text-field
-            label="Row Name"
-            v-model="rowName"
-            prepend-icon="mdi-pencil"
-          ></v-text-field>
-          <v-text-field
-            label="Row Color"
-            v-model="rowColor"
-            prepend-icon="mdi-pencil"
-          ></v-text-field>
-          <v-btn @click="emitRow"> Submit</v-btn>
+          <v-row justify="center">
+            <v-text-field
+              label="Row Name"
+              v-model="rowName"
+              prepend-icon="mdi-pencil"
+            ></v-text-field>
+          </v-row>
+          <v-row justify="center" style="padding-bottom: 10px;">
+            <v-menu offset-y>
+              <template v-slot:activator="{ on }">
+                <v-btn :color="rowColor" dark v-on="on">
+                  Row Color
+                </v-btn>
+              </template>
+              <v-color-picker
+                v-model="rowColor"
+                hide-inputs
+                class="mx-auto"
+              ></v-color-picker>
+            </v-menu>
+          </v-row>
+          <v-row justify="center" style="padding-bottom: 10px;">
+            <v-btn @click="emitRow"> Submit</v-btn></v-row
+          >
         </v-col>
         <v-spacer></v-spacer>
       </v-card>
@@ -59,11 +72,12 @@ export default {
   data() {
     return {
       rowName: "",
-      rowColor: "",
+      rowColor: "#00000",
       rowId: 0,
       startDate: "",
       endDate: "",
-      columnSpan: 7
+      columnSpan: 7,
+      showColPicker: false,
     };
   },
   methods: {
@@ -74,7 +88,7 @@ export default {
         id: this.rowId++
       });
       this.rowName = "";
-      this.rowColor = "";
+      this.rowColor = "#00000";
     },
     emitColumn() {
       this.$emit("addColumn", {
