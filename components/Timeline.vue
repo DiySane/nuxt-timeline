@@ -1,11 +1,13 @@
 <template>
   <div class="timeline">
     <Header :columnSpan="columnSpan" />
-    <!-- <Row :gridColumnSpan="7" :name="'row1'" :color="'#ffa07a'" />
-    <Row :gridColumnSpan="7" :name="'row2'" :color="'#fbec5d'" />
-    <Row :gridColumnSpan="7" :name="'row3'" :color="'#33a8a5'" /> -->
-    <div v-for="row in rows" :key="row.name">
-        <Row :gridColumnSpan="columnSpan" :name="row.name" :color="row.color" />
+    <div v-for="row in rows" :key="row.name" @click="selectRow(row)">
+      <Row
+        :gridColumnSpan="columnSpan"
+        :name="row.name"
+        :color="row.color"
+        :tasks="row.tasks"
+      />
     </div>
   </div>
 </template>
@@ -31,20 +33,29 @@
 import Header from "@/components/Header";
 import Row from "@/components/Row";
 export default {
-    props: {
-        rows: {
-            type: Array,
-            required: true
-        },
-        startDate: {
-            type: String
-        },
-        endDate: {
-            type: String
-        },
-        columnSpan: {
-            type: Number
-        }
+  props: {
+    rows: {
+      type: Array,
+      required: true
     },
+    startDate: {
+      type: String
+    },
+    endDate: {
+      type: String
+    },
+    columnSpan: {
+      type: Number
+    }
+  },
+  methods: {
+    selectRow(row) {
+      this.$emit("emitSelectedRow", row);
+      console.log(row);
+    },
+    acceptSelectedRow(row) {
+      this.selectRow(row);
+    }
+  }
 };
 </script>
