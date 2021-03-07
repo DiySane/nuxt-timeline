@@ -62,10 +62,12 @@ export default {
       }
       var a = moment(this.dates[0]);
       var b = moment(this.dates[1]);
-      let startDate = a.format("DD-MM-YYYY");
-      let endDate = b.format("DD-MM-YYYY");
+      // let startDate = a.format("DD-MM-YYYY");
+      // let endDate = b.format("DD-MM-YYYY");
+      let startDate = a.format("YYYY-MM-DD");
+      let endDate = b.format("YYYY-MM-DD");
       let columnSpan = Math.abs(a.diff(b, "days")) + 1;
-      console.log(columnSpan);
+      // console.log(columnSpan);
       this.$emit("emitDateRange", {
         startDate,
         endDate,

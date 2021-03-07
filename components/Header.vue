@@ -1,16 +1,12 @@
 <template>
   <div class="row" :style="cssVars">
     <div class="row-label">Columns</div>
-    <div v-for="i in columnSpan" :key="i">
-      <ColumnHeader :name="i.toString()" :gridColumn="i+1"/>
-    </div> 
-    <!-- <ColumnHeader :name="'Sun'" :gridColumn="2" />
-    <ColumnHeader :name="'Mon'" :gridColumn="3" />
-    <ColumnHeader :name="'Tue'" :gridColumn="4" />
-    <ColumnHeader :name="'Wed'" :gridColumn="5" />
-    <ColumnHeader :name="'Thu'" :gridColumn="6" />
-    <ColumnHeader :name="'Fri'" :gridColumn="7" />
-    <ColumnHeader :name="'Sat'" :gridColumn="8" /> -->
+    <!-- <div v-for="i in columnSpan" :key="i">
+      <ColumnHeader :name="i.toString()" :gridColumn="i + 1" />
+    </div> -->
+    <div v-for="i in headerDates.length - 1" :key="i">
+      <ColumnHeader :name="headerDates[i].toString()" :gridColumn="i" />
+    </div>
   </div>
 </template>
 
@@ -37,8 +33,15 @@
 
 <script>
 import ColumnHeader from "@/components/ColumnHeader";
+import moment from "moment";
 export default {
   props: {
+    startDate: {
+      type: String
+    },
+    endDate: {
+      type: String
+    },
     columnSpan: {
       type: Number
     }
@@ -49,6 +52,26 @@ export default {
         /* variables you want to pass to css */
         "--grid-column-span": this.columnSpan
       };
+    },
+    headerDates() {
+      console.log("startDate: " + this.startDate);
+      return this.getDaysBetweenDates(this.startDate, this.endDate);
+    }
+  },
+  methods: {
+    getDaysBetweenDates(startDate, endDate) {
+      let now = moment(startDate),
+        dates = [];
+        console.log(now.format("MM/DD/YYYY"));
+        dates.push(now.format("DD-MM-YYYY"));
+      while (now.isSameOrBefore(endDate)) {
+        // dates.push(now.format("MM/DD/YYYY"));
+        dates.push(now.format("DD-MM-YYYY"));
+
+        now.add(1, "days");
+      }
+
+      return dates;
     }
   }
 };

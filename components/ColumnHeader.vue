@@ -4,7 +4,7 @@
 
 <style scoped>
 .columnName {
-  border: #333 1px solid;
+  border: #FFFF 1px solid;
   padding: 0em;
   margin: 0px;
   grid-column: var(--grid-column);
