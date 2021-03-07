@@ -64,7 +64,7 @@ export default {
         dates = [];
         console.log(now.format("MM/DD/YYYY"));
         dates.push(now.format("DD-MM-YYYY"));
-      while (now.isSameOrBefore(endDate)) {
+      while (now.isSameOrBefore(moment(endDate))) {
         // dates.push(now.format("MM/DD/YYYY"));
         dates.push(now.format("DD-MM-YYYY"));
 

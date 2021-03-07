@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     getNodeColor(node) {
-      if(node.color == undefined || node.color == null) {
+      if(node.color == undefined || node.color == null || node.color == "") {
         return this.color;
       } else {
         return node.color;

@@ -51,8 +51,8 @@ export default {
         { name: "task3", start: 3, end: 6, complete: 0.5 },
         { name: "task4", start: 7, end: 8, complete: 0.5 }
       ],
-      startDate: moment().startOf("week"),
-      endDate: moment().endOf("week"),
+      startDate: new Date(moment().startOf("week").format("MM/DD/YYYY")),
+      endDate: new Date(moment().endOf("week").format("MM/DD/YYYY")),
       columnSpan: 7,
       selectedRow: null
     };
