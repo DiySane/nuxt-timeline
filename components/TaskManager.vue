@@ -9,42 +9,31 @@
     >
       TASK MANAGER
     </v-card-title>
-    <v-form class="px-3" ref="form" style="grid-row: 2/5; grid-column: 1/3;">
-      <v-text-field
-        text-color="black"
-        label="Task Name"
-        v-model="name"
-        prepend-icon="mdi-pencil"
-        style="caret-color: black;"
-      ></v-text-field>
-      <v-text-field
-        label="Start Day"
-        v-model="start"
-        prepend-icon="mdi-pencil"
-      ></v-text-field>
-      <v-text-field
-        v-if="false"
-        label="Task End"
-        v-model="end"
-        prepend-icon="mdi-pencil"
-      ></v-text-field>
-      <v-text-field
-        label="Row"
-        v-model="row"
-        prepend-icon="mdi-pencil"
-      ></v-text-field>
-      <v-text-field
-        label="Color"
-        v-model="color"
-        prepend-icon="mdi-pencil"
-      ></v-text-field>
-      <v-text-field
-        label="Sub-row"
-        v-model="subRow"
-        prepend-icon="mdi-pencil"
-      ></v-text-field>
-      <v-btn @click="emitNode"> Submit</v-btn>
-    </v-form>
+    <v-card class="px-3" ref="form" style="grid-row: 2/5; grid-column: 1/3;">
+      <v-card color="#607D8B">
+        <v-col>
+          <v-text-field
+            text-color="black"
+            label="Task Name"
+            v-model="name"
+            prepend-icon="mdi-pencil"
+            style="caret-color: black;"
+          ></v-text-field>
+          <DateRangePicker @emitDateRange="acceptDateRange" />
+          <v-text-field
+            label="Row"
+            v-model="rowName"
+            prepend-icon="mdi-pencil"
+          ></v-text-field>
+          <v-text-field
+            label="Color"
+            v-model="color"
+            prepend-icon="mdi-pencil"
+          ></v-text-field>
+          <v-btn @click="emitNode" :disabled="submitDisabled"> Submit</v-btn>
+        </v-col>
+      </v-card>
+    </v-card>
   </v-card>
 </template>
 
@@ -63,13 +52,14 @@
 </style>
 
 <script>
+import DateRangePicker from "@/components/DateRangePicker";
 export default {
   data() {
     return {
       title: "",
       name: "",
-      start: "",
-      end: "",
+      startDate: "",
+      endDate: "",
       row: "",
       color: "",
       subRow: "",
@@ -83,12 +73,28 @@ export default {
     emitNode() {
       this.$emit("addNode", {
         name: this.name,
-        start: parseInt(this.start),
-        row: parseInt(this.row),
+        startDate: this.startDate,
+        endDate: this.endDate,
         color: this.color,
-        subRow: parseInt(this.subRow),
         id: this.id++
       });
+    },
+    acceptDateRange(dateRange) {
+      this.startDate = dateRange.startDate;
+      this.endDate = dateRange.endDate;
+    }
+  },
+  props: {
+    selectedRow: {
+      type: Object
+    }
+  },
+  computed: {
+    rowName() {
+      return this.selectedRow != null ? this.selectedRow.name : "";
+    },
+    submitDisabled() {
+      return this.selectedRow == null;
     }
   }
 };

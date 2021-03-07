@@ -1,5 +1,4 @@
 <template>
-  <!-- <label> -->
   <div
     class="task"
     :style="cssVars"
