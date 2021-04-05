@@ -3,13 +3,13 @@
    >
     <div class="row-label">{{ name }}</div>
     <Task
-      v-for="task in tasks"
-      :key="task.name"
-      :name="task.name"
-      :start="task.start"
-      :end="task.end"
-      :color="color"
-      :complete="task.complete"
+      v-for="node in nodes"
+      :key="node.name"
+      :name="node.name"
+      :start="node.start"
+      :end="node.end"
+      :color="getNodeColor(node)"
+      :complete="node.complete"
     />
   </div>
 </template>
@@ -44,7 +44,7 @@ export default {
     color: {
       type: String
     },
-    tasks: {
+    nodes: {
       type: Array
     }
   },
@@ -56,5 +56,14 @@ export default {
       };
     }
   },
+  methods: {
+    getNodeColor(node) {
+      if(node.color == undefined || node.color == null || node.color == "") {
+        return this.color;
+      } else {
+        return node.color;
+      }
+    }
+  }
 };
 </script>

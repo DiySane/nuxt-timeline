@@ -36,19 +36,7 @@
 <script>
 import moment from "moment";
 export default {
-  //   props: {
-  //     startDate: {
-  //       type: String
-  //     },
-  //     endDate: {
-  //       type: String
-  //     },
-  //     columnSpan: {
-  //       type: Number
-  //     }
-  //   },
   data: () => ({
-    // dates: ["2019-09-10", "2019-09-20"],
     dates: [],
     date: new Date().toISOString().substr(0, 10),
     menu: false,
@@ -62,10 +50,15 @@ export default {
       }
       var a = moment(this.dates[0]);
       var b = moment(this.dates[1]);
-      let startDate = a.format("DD-MM-YYYY");
-      let endDate = b.format("DD-MM-YYYY");
+      if(a.isAfter(b)) {
+        let temp = b;
+        b = a;
+        a = temp;
+        this.dates.reverse();
+      }
+      let startDate = a.format("YYYY-MM-DD");
+      let endDate = b.format("YYYY-MM-DD");
       let columnSpan = Math.abs(a.diff(b, "days")) + 1;
-      console.log(columnSpan);
       this.$emit("emitDateRange", {
         startDate,
         endDate,

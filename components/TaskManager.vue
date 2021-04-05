@@ -58,8 +58,8 @@ export default {
     return {
       title: "",
       name: "",
-      startDate: "",
-      endDate: "",
+      startDate: null,
+      endDate: null,
       row: "",
       color: "",
       subRow: "",
@@ -78,6 +78,10 @@ export default {
         color: this.color,
         id: this.id++
       });
+      this.name = "";
+      this.startDate = null;
+      this.endDate = null;
+      this.color = null;
     },
     acceptDateRange(dateRange) {
       this.startDate = dateRange.startDate;

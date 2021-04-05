@@ -1,12 +1,12 @@
 <template>
   <div class="timeline">
-    <Header :columnSpan="columnSpan" />
+    <Header :startDate="startDate" :endDate="endDate" :columnSpan="columnSpan" />
     <div v-for="row in rows" :key="row.name" @click="selectRow(row)">
       <Row
         :gridColumnSpan="columnSpan"
         :name="row.name"
         :color="row.color"
-        :tasks="row.tasks"
+        :nodes="row.nodes"
       />
     </div>
   </div>
@@ -39,10 +39,10 @@ export default {
       required: true
     },
     startDate: {
-      type: String
+      type: Date
     },
     endDate: {
-      type: String
+      type: Date
     },
     columnSpan: {
       type: Number
