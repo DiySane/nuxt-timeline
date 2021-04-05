@@ -1,7 +1,5 @@
 <template>
   <progress class="sub-task" :style="cssVars"></progress>
-  <!-- <li class="sub-task" :style="cssVars"></li> -->
-<!-- <dt class="sub-task" :style="cssVars"></dt> -->
 </template>
 
 <style scoped>

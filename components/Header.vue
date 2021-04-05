@@ -1,11 +1,8 @@
 <template>
   <div class="row" :style="cssVars">
     <div class="row-label">Columns</div>
-    <!-- <div v-for="i in columnSpan" :key="i">
-      <ColumnHeader :name="i.toString()" :gridColumn="i + 1" />
-    </div> -->
     <div v-for="i in headerDates.length - 1" :key="i">
-      <ColumnHeader :name="headerDates[i].toString()" :gridColumn="i" />
+      <ColumnHeader :date="headerDates[i]" :gridColumn="i" />
     </div>
   </div>
 </template>
@@ -21,7 +18,6 @@
   background-color: #0a3444 !important;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   text-align: center;
-  /* grid-template-columns: 150px repeat(12, 1fr); */
 }
 .row-label {
   grid-column: 1/2;
@@ -37,10 +33,10 @@ import moment from "moment";
 export default {
   props: {
     startDate: {
-      type: String
+      type: Date
     },
     endDate: {
-      type: String
+      type: Date
     },
     columnSpan: {
       type: Number
@@ -54,23 +50,18 @@ export default {
       };
     },
     headerDates() {
-      console.log("startDate: " + this.startDate);
       return this.getDaysBetweenDates(this.startDate, this.endDate);
     }
   },
   methods: {
     getDaysBetweenDates(startDate, endDate) {
-      let now = moment(startDate),
-        dates = [];
-        console.log(now.format("MM/DD/YYYY"));
-        dates.push(now.format("DD-MM-YYYY"));
+      let now = moment(startDate);
+      let dates = [];
+      dates.push(new Date(now.format("MM/DD/YYYY")));
       while (now.isSameOrBefore(moment(endDate))) {
-        // dates.push(now.format("MM/DD/YYYY"));
-        dates.push(now.format("DD-MM-YYYY"));
-
+        dates.push(new Date(now.format("MM/DD/YYYY")));
         now.add(1, "days");
       }
-
       return dates;
     }
   }

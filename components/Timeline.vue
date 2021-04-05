@@ -39,10 +39,10 @@ export default {
       required: true
     },
     startDate: {
-      type: String
+      type: Date
     },
     endDate: {
-      type: String
+      type: Date
     },
     columnSpan: {
       type: Number
